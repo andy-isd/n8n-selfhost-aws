@@ -1,0 +1,86 @@
+server {
+
+    listen 80;
+    listen [::]:80;
+
+    server_name DOMAIN;
+
+    root /var/www/default;
+    index index.html;
+
+    gzip on;
+    gzip_disable "msie6";
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+
+    client_max_body_size 64M;
+
+    location ~ /\.well-known { allow all; try_files $uri $uri/ =404; }
+
+    location ~ /\. { deny all; }
+
+    # robots.txt disallow
+    location = /robots.txt { return 200 "User-agent: *\nDisallow: /\n"; }
+
+    # websockets
+    location /rest/push {
+        proxy_buffering         off;
+        proxy_buffers           8 32k;
+        proxy_buffer_size       64k;
+        proxy_read_timeout      86400s;
+        proxy_send_timeout      86400s;
+        send_timeout            86400s;
+        proxy_pass http://127.0.0.1:5678;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # api / backend / docker
+    location / {
+        add_header 'X-Frame-Options' 'SAMEORIGIN' always;
+        add_header 'X-XSS-Protection' '1; mode=block' always;
+        add_header 'X-Content-Type-Options' 'nosniff' always;
+        add_header 'Referrer-Policy' 'same-origin' always;
+        add_header 'Strict-Transport-Security' 'max-age=63072000; includeSubDomains; preload' always;
+#        add_header 'Access-Control-Allow-Origin' '*' always;
+#        add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH' always;
+#        add_header 'Access-Control-Allow-Headers' $http_access_control_request_headers always;
+#        if ($request_method = 'OPTIONS') {
+#                add_header 'Access-Control-Allow-Origin' '*' always;
+#                add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH' always;
+#                add_header 'Access-Control-Allow-Headers' $http_access_control_request_headers always;
+#                add_header 'Access-Control-Max-Age' 86400;
+#                add_header 'Content-Type' 'text/plain charset=UTF-8';
+#                add_header 'Content-Length' 0;
+#                return 204;
+#        }
+        proxy_pass http://127.0.0.1:5678;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        #proxy_set_header Authorization "Basic XXXXXXXXXXX";
+    }
+
+    # http-auth protection
+#    location / {
+#       auth_basic "Restricted Content";
+#       auth_basic_user_file /etc/nginx/snippets/.htpasswd;
+#    }
+
+    # ip-based protection
+#    location / {
+#        allow 93.74.78.243;
+#        deny all;
+#    }
+
+}
