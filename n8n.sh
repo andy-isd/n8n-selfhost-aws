@@ -1,3 +1,5 @@
+# IMPORTANT: remember to replace YOURDOMAIN within this file with your registered subdomain
+
 # installing basic apps
 sudo apt update
 sudo install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
@@ -36,10 +38,12 @@ sudo docker volume create n8n_data
 cd /var/www/default
 sudo docker compose up -d
 
+# IMPORTANT: replace YOURDOMAIN with your subdomain here
 echo "Setting up nginx host"
 sudo sed -i 's/DOMAIN/YOURDOMAIN/g' /etc/nginx/sites-available/default
 sudo ln -fns /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx reload
 
+# IMPORTANT: replace YOURDOMAIN with your subdomain here
 echo "Obtaining SSL certificate"
 sudo certbot --register-unsafely-without-email --agree-tos -d YOURDOMAIN
