@@ -21,8 +21,8 @@ sudo apt-get install -y python3-acme python3-certbot python3-certbot-nginx pytho
 
 # downloading files
 echo "Downloading files..."
-sudo wget -P /etc/nginx/sites-available https://andy.isd-group.com/autodeb/n8n/default
-sudo wget -P /var/www/default https://andy.isd-group.com/autodeb/n8n/docker-compose.yml
+sudo wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/andy-isd/n8n-selfhost-aws/refs/heads/main/etc/nginx/default
+sudo wget -P /var/www/default https://raw.githubusercontent.com/andy-isd/n8n-selfhost-aws/refs/heads/main/var/www/docker-compose.yml
 
 sudo chown root:www-data /var/www/default
 
