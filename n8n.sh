@@ -4,11 +4,8 @@ sudo apt update
 sudo install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
 
 sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter
-sudo sed -i 's/# server_tokens off;/server_tokens off;\n\tmore_clear_headers Server;/g' /etc/nginx/nginx.conf
-sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/g' /etc/nginx/nginx.conf
 sudo rm -rf /etc/nginx/sites-available/default
 sudo rm -rf /etc/nginx/sites-enabled/default
-sudo rm -rf /var/www/html
 sudo service nginx restart
 
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash -
