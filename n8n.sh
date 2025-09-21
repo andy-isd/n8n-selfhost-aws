@@ -36,5 +36,4 @@ sudo ln -fns /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service nginx reload
 
 # IMPORTANT: replace YOURDOMAIN with your subdomain here
-echo "Obtaining SSL certificate"
 sudo certbot --register-unsafely-without-email --agree-tos -d YOURDOMAIN
