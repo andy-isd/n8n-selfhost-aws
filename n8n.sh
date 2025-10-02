@@ -15,8 +15,11 @@ sudo curl -fsSL https://get.docker.com -o get-docker.sh
 sudo chmod +x get-docker.sh
 sudo ./get-docker.sh
 
+# IMPORTANT: replace YOURDOMAIN with your subdomain here
 sudo docker volume create n8n_data
 cd /var/www/default
+sudo sed -i 's/http/https/g' /var/www/default/docker-compose.yml
+sudo sed -i 's/127.0.0.1:5678/YOURDOMAIN/g' /var/www/default/docker-compose.yml
 sudo docker compose up -d
 
 # IMPORTANT: replace YOURDOMAIN with your subdomain here
