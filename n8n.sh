@@ -1,10 +1,12 @@
 sudo apt update
 sudo apt-get install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
 
-sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter certbot
+sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter
 sudo rm -rf /etc/nginx/sites-available/default
 sudo rm -rf /etc/nginx/sites-enabled/default
 sudo service nginx restart
+
+sudo apt-get install -y python3-acme python3-certbot python3-certbot-nginx python3-mock python3-openssl python3-pkg-resources python3-pyparsing python3-zope.interface
 
 sudo wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/andy-isd/n8n-selfhost-aws/refs/heads/main/etc/nginx/default
 sudo wget -P /var/www/default https://raw.githubusercontent.com/andy-isd/n8n-selfhost-aws/refs/heads/main/var/www/docker-compose.yml
