@@ -1,7 +1,7 @@
 sudo apt update
 sudo apt-get install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
 
-sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter
+sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter certbot
 sudo rm -rf /etc/nginx/sites-available/default
 sudo rm -rf /etc/nginx/sites-enabled/default
 sudo service nginx restart
