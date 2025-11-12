@@ -1,5 +1,5 @@
 sudo apt update
-sudo install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
+sudo apt-get install -y openssh-server dkms build-essential mc less htop zip unzip host wget curl net-tools rsync sqlite3
 
 sudo apt-get install -y nginx apache2-utils libnginx-mod-http-headers-more-filter
 sudo rm -rf /etc/nginx/sites-available/default
